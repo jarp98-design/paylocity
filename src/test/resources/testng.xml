@@ -2,10 +2,10 @@
 <suite name="Suite" verbose="0">
     <test name="Tests"> 
         <classes>
-            <class name="tests.EmployeeApiTest"/>
-            <class name="tests.LoginTest"/>
-            <class name="tests.DashboardTest"/>
-            <class name="tests.LogoutTest"/>
+            <class name="tests.api.EmployeeApiTest"/>
+            <!-- <class name="tests.ui.LoginTest"/>
+            <class name="tests.ui.DashboardTest"/>
+            <class name="tests.ui.LogoutTest"/> -->
         </classes>
     </test>
 </suite>

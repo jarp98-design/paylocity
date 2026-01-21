@@ -1,10 +1,13 @@
 package pages;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.Cookie;
 
 import utils.WaitUtil;
+import utils.ConfigAPI;
 
 public class LoginPage {
 
@@ -23,6 +26,21 @@ public class LoginPage {
 
     public void open(String url) throws InterruptedException {
         driver.get(url);
+        wait.waitForPageToLoad();
+    }
+
+    public void open(String url, Map<String, String> authCookies) throws InterruptedException {
+        driver.get(url);
+
+        authCookies.forEach((name, value) -> {
+            Cookie cookie = new Cookie.Builder(name, value)
+                .domain(ConfigAPI.DOMAIN)
+                .path("/")
+                .build();
+            driver.manage().addCookie(cookie);
+        });
+
+        driver.navigate().refresh();
         wait.waitForPageToLoad();
     }
 

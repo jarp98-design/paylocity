@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import io.restassured.response.Response;
 import io.restassured.RestAssured;
@@ -10,11 +10,8 @@ import utils.RequestFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.*;
@@ -45,7 +42,8 @@ public class EmployeeApiTest {
             .when()
                 .post("/api/Employees")
             .then()
-                .statusCode(200)
+                .spec(RequestFactory.getResponseSpec())
+                //.statusCode(200)
                 .extract()
                 .response();
 
@@ -57,7 +55,8 @@ public class EmployeeApiTest {
         when()
             .get("/api/Employees")
         .then()
-            .statusCode(200)
+            .spec(RequestFactory.getResponseSpec())
+            //.statusCode(200)
             .body("firstName", hasItem("Steve"))
             .body("lastName", hasItem("Rogers"));
         
@@ -78,7 +77,8 @@ public class EmployeeApiTest {
         when()
             .get("/api/Employees/{id}", steveId)
         .then()
-            .statusCode(200)
+            .spec(RequestFactory.getResponseSpec())
+            //.statusCode(200)
             .body("id", equalTo(steveId))
             .body("firstName", equalTo("Steve"))
             .body("lastName", equalTo("Rogers"));
@@ -87,7 +87,8 @@ public class EmployeeApiTest {
         when()
             .get("/api/Employees/{id}", employeeId)
         .then()
-            .statusCode(200)
+            .spec(RequestFactory.getResponseSpec())
+            //.statusCode(200)
             .body("id", equalTo(employeeId.toString()))
             .body("firstName", equalTo(newEmployee.get("firstName")))
             .body("lastName", equalTo(newEmployee.get("lastName")));
@@ -113,7 +114,8 @@ public class EmployeeApiTest {
         when()
             .get("/api/Employees/{id}", employeeId)
         .then()
-            .statusCode(200)
+            .spec(RequestFactory.getResponseSpec())
+            //.statusCode(200)
             .body("id", equalTo(employeeId.toString()))
             .body("firstName", equalTo(updateEmployee.get("firstName")))
             .body("lastName", equalTo(updateEmployee.get("lastName")))
@@ -125,6 +127,7 @@ public class EmployeeApiTest {
         when()
             .delete("/api/Employees/{id}", employeeId)
         .then()
+            //.spec(RequestFactory.getResponseSpec());
             .statusCode(200);
 
         // Verify the employee has been deleted
